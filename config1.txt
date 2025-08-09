@@ -1,0 +1,14 @@
+%%writefile config.py
+class Config:
+ÿ Debug = True
+ÿ MODEL_PATH = "iris_model.pkl"
+ÿ DATASET_PATH = "iris_dataset.csv"
+ÿ LOG_LEVEL = "INFO"
+ÿ @staticmethod
+ÿ def get_config():
+ÿ ÿ return {
+ÿ ÿ ÿ ÿ "debug" : Config.Debug,
+ÿ ÿ ÿ ÿ "model_path" : Config.MODEL_PATH,
+ÿ ÿ ÿ ÿ "dataset_path" : Config.DATASET_PATH,
+ÿ ÿ ÿ ÿ "log_level": Config.LOG_LEVEL,
+ÿ ÿ }

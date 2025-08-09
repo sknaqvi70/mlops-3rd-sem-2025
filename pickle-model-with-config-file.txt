@@ -1,0 +1,30 @@
+%%writefile train_model.py
+
+import pickle
+import os
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split 
+from sklearn.ensemble import RandomForestClassifier
+
+import config #Import settings from config.py
+
+#Load dataset
+
+iris = load_iris() 
+x, y = iris.data, iris.target
+
+#Split dataset based on environment configuration
+x_train, x_test, y_train, y_test =  train_test_split(
+    x, y, test_size=config.settings.TEST_SIZE, random_state=config.settings.RANDOM_STATE)
+
+#Train the model
+
+model = RandomForestClassifier(n_estimators=190, random_state=config.settings.RANDOM_STATE)
+model.fit(x_train, y_train)
+
+#Save the trained model as a pickle file 
+model_path = config.settings.MODEL_PATH
+with open(model_path, "wb") as f: 
+  pickle.dump(model, f)
+
+print("Model saved as iris_model.pkl")
