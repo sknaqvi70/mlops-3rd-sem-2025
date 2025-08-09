@@ -1,15 +1,11 @@
 %%writefile app.py
-
 import config
-
 def main():
-  settings = config.Config.get_config()
-
-  print("---APP OUTPUT START---")
-  print("Application Configuration")
-  for key,value in settings.items():
-    print(f"{key} : {value}")
-  print("---APP OUTPUT END---")
-
+ÿ settings = config.Config.get_config()
+ÿ print("---APP OUTPUT START---")
+ÿ print("Application Configuration")
+ÿ for key,value in settings.items():
+ÿ ÿ print(f"{key} : {value}")
+ÿ print("---APP OUTPUT END---")
 if __name__ == "__main__":
-  main()
+ÿ main()

@@ -1,16 +1,35 @@
 %%writefile config.py
 
-class Config:
-  Debug = True
-  MODEL_PATH = "iris_model.pkl"
-  DATASET_PATH = "iris_dataset.csv"
-  LOG_LEVEL = "INFO"
+import os
 
-  @staticmethod
-  def get_config():
-    return {
-        "debug" : Config.Debug,
-        "model_path" : Config.MODEL_PATH,
-        "dataset_path" : Config.DATASET_PATH,
-        "log_level": Config.LOG_LEVEL,
-    }
+class Config:
+    MODEL_PATH = "iris_model.pkl"
+    DATASET_PATH = "iris_dataset.csv"
+    LOG_LEVEL = "INFO"
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    TEST_SIZE = 0.3
+    RANDOM_STATE = 42
+
+class StagingConfig(Config):
+    DEBUG = False
+    TEST_SIZE = 0.2
+    RANDOM_STATE = 42
+
+class ProductionConfig(Config):
+    DEBUG = False
+    TEST_SIZE = 0.1
+    RANDOM_STATE = 42
+
+#Determine environment from system variable
+ENV = os.getenv("ML_ENV", "development").lower()
+
+if ENV == "staging":
+    settings = StagingConfig()
+elif ENV == "production":
+  settings = ProductionConfig()
+else:
+  settings = DevelopmentConfig()
+
+print(f"Loaded {ENV.upper()} coonfiguration")
